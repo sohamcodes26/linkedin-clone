@@ -72,7 +72,7 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    connections: [{ type: mongoose.Schema.Types.ObjectId, ref: User }],
+    connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
   { timestamps: true }
 );
