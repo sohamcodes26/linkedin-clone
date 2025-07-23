@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+.env
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# React
+build/
+dist/
+
+# Others
+.DS_Store
+.vscode/
+saveChangesToGithub.txt
