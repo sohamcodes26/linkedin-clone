@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+.signup-form input{
+    @apply h-10 border-[2px] border-gray-700 rounded px-3;
+}
+
+
+
+
+/* img{
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    height: 100px;
+} */

@@ -12,7 +12,7 @@ export const signUp = async (req, res) => {
     if (existingUser || username) {
       return res
         .status(400)
-        .json({ message: "email or username already exist!" });
+        .json({ message: "Email or username already exists!" });
     }
 
     if (password.length < 8) {
@@ -40,7 +40,15 @@ export const signUp = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
     });
 
-    return res.status(201).json({ message: "User created succesfully" }, user);
+
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
+    return res.status(201).json({
+        message: "User created successfully",
+        user: userResponse
+    });
+
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Sign up error" });
@@ -71,12 +79,14 @@ export const login = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
     });
 
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
     return res.status(200).json({
       message: "Login successful",
-      user,
-      token,
+      user: userResponse,
     });
-    return res.status(201).json(user);
+    
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "login error" });
@@ -85,9 +95,10 @@ export const login = async (req, res) => {
 
 export const logOut = async (req, res) => {
   try {
-    res.clearcookie("token");
+  
+    res.cookie("token", "", { httpOnly: true, expires: new Date(0) });
 
-    return res.status(200).json({ message: "logout successful" });
+    return res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     return res.status(500).json({ message: "Logout error" });
   }
